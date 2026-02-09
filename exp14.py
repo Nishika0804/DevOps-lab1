@@ -1,33 +1,35 @@
 import os
 
-# initialize git repository
 os.system("git init")
 
-# create a sample file
-f = open("file.txt", "w")
-f.write("This is main branch file")
-f.close()
+# main branch file
+with open("file.txt", "w") as f:
+    f.write("This is the main branch.")
 
-# add and commit in main branch
 os.system("git add .")
-os.system('git commit -m "Initial commit in main branch"')
+os.system('git commit -m "Main branch commit"')
 
-# create and switch to new branch
+# create feature branch
 os.system("git checkout -b feature")
 
-# modify file in feature branch
-f = open("file.txt", "a")
-f.write("\nThis line is added in feature branch")
-f.close()
+# modify same line
+with open("file.txt", "w") as f:
+    f.write('This is the main branch. "Change from feature branch"')
 
-# add and commit in feature branch
 os.system("git add .")
-os.system('git commit -m "Commit in feature branch"')
+os.system('git commit -m "Feature branch change"')
 
-# switch back to main branch
+# go back to main
 os.system("git checkout master")
 
-# merge feature branch into main
+# modify same line again
+with open("file.txt", "w") as f:
+    f.write("This is the main branch.")
+
+os.system("git add .")
+os.system('git commit -m "Main branch update"')
+
+# merge (this will cause conflict)
 os.system("git merge feature")
 
-print("Branching and merging completed successfully!")
+print("Merge conflict occurred")
